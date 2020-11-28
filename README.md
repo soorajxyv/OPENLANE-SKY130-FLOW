@@ -230,7 +230,7 @@ Using the waveform in  **ngspice** tool, we are mesuring the propogation delay. 
 7. out_rise_thr - considering 50% of output rise time
 8. out_fall_thr - considering 50% of out fall time
 
-**propogation delay = time(out_thr) - time(int_thr)**
+**propogation delay = time(out_thr) - time(in_thr)**
 
 **DRC CHEK**
 
