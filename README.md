@@ -57,6 +57,15 @@ After preparing, we need to perform synthesis. The Mapping and static timing ana
 
 **SYNTHESIS**
 
+Synthesis transforms the simple RTL design into a gate-level netlist with all the constraints as specified by the designer. In simple language, Synthesis is a process that converts the abstract form of design to a properly implemented chip in terms of logic gates.
+
+Synthesis takes place in multiple steps:
+
+![Synthesis steps](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/Synthesis_steps.png)
+
+Synthesis is a very important process for the designers as it enables them to see how the design will actually look like after fabrication. All parameters including area, timing, power can be reported and checked by the designer beforehand. He/She can make the necessary changes(if required) before the actual fabrication process, thus saving both time and cost. Also,Mapping those gates to actual technology-dependent logic gates available in the technology libraries and optimizing the mapped netlist keeping the constraints set by the designer intact.
+
+_**Tools:**_
 1. yosys - Performs RTL synthesis
 2. abc - Performs technology mapping
 3. OpenSTA - Performs static timing analysis on the resulting net-list to generate timing reports
@@ -210,3 +219,46 @@ The inverter waveform can observe as below after re-run the **ngspice sky130_inv
 As the part of characterisation, we can get the propogation delay from the ngspice as below:
 ![characterisation](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/propogation_rise_high.PNG)
 
+Using the waveform in  **ngspice** tool, we are mesuring the propogation delay. there are 8 different timing threshold characterisation need to perform which are listed below:
+
+1.slew_low_rise_thr  - considering 20% of rise time
+2.slew_high_rise_thr - considering 80% of rise time
+3.slew_low_fall_thr - considering 20% of fall time
+4.slew_high_fall_thr - considering 80% of fall time
+5.in_rise_thr - considering 50% of input rise time
+6.in_fall_thr - considering 50% of input fall time
+7.out_rise_thr - considering 50% of output rise time
+8.out_fall_thr - considering 50% of out fall time
+
+**propogation delay = time(out_thr) - time(int_thr)**
+
+**DRC CHEK**
+
+The DRC (Design Rule Check) is one of the very important in the layout.In this workshop, we are trying to download all the metal layers, using below command to download from opencircuitdesign.com
+
+_wget http://opencircuitdesign.com/open_pdks/archive/drc_tests.tgz_
+
+Untar the downloaded folder with tar -xvz and goto the drc_test folder to open in magic (using command magix -d XR)
+
+Here, opened metal3 layout as below:
+![M3 Layer](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/open_magic_M3_layers_sky130.PNG)
+Now that create a box and add metal2 init and see via using cif see VIA2 :
+![cif see VIA2](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/cif%20see%20VIA2_command_add_via.PNG)
+
+There are a few more commands for DRC as below:
+
+1. ;drc why  - to check the drc error from layout
+2.**tech load[tech file]** & command **drc check** - to load the updated tech file and check the drc
+
+some other commands as below :
+
+Box (for measure):
+![box](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/box_command_magic.PNG)
+
+feed clear (to clear the via2):
+![feed clear](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/feed_clear_command_to_remove_VIA2.PNG)
+
+load command to load any .mag file (here poly layer) :
+![load poly](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/load_poly_magic_command.PNG)
+
+**To clear the DRC rules, need to follow the Skywater PDK website (https://skywater-pdk--136.org.readthedocs.build/en/136/rules/periphery.html#poly)** for right measurements. 
