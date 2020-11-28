@@ -1,5 +1,5 @@
 
-Open Source RTL2GSDII
+VLSI design open source RTL2GSDII 
 
 ![OpenLANE Flow](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/VLSI-design-course.jpg)
 
@@ -17,7 +17,7 @@ Performance: long routes have significantly longer signal delays.
 * Power: transistors with smaller gate lengths achieve greater switching speeds at the cost of higher leakage current and manufacturing variability; larger transistors and longer wires result in greater dynamic power dissipation.
 * Yield: wires routed too close together may decrease yield due to electrical shorts occurring during manufacturing, but spreading gates too far apart may also undermine yield due to longer wires and a higher probability of opens
 
-**OpenLANE (open sourse automated flow):** 
+**OpenLANE (open source automated flow):** 
 
 OpenLANE is an automated RTL to GDSII flow based on several components including OpenROAD, Yosys, Magic, Netgen, Fault, OpenPhySyn, SPEF-Extractor and custom methodology scripts for design exploration and optimization.
 
