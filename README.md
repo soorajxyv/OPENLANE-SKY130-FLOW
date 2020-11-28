@@ -55,7 +55,7 @@ It is important to prepare the design after invoke the package. The current desi
 
 After preparing, we need to perform synthesis. The Mapping and static timing analysis also performed in the Synthesis stage.below are the open source tools used for each tasks:
 
-**Synthesis**
+**SYNTHESIS**
 
 1. yosys - Performs RTL synthesis
 2. abc - Performs technology mapping
@@ -72,7 +72,7 @@ Here,the total number of D flip-flop = 1634 and total number of Cells = 17323 an
 All the runs available in working_dir/openLANE/design/picorv32a/runs directory names as date.
 
 
-**Floorplan and PDN:**
+**FLOORPLAN AND PDN:**
 
 This is the first major step in getting your layout done, and this is the most important one.Your floorplan determines your chip quality. Floorplanning includes
 * Define the size of your chip/block and Aspect ratio
@@ -121,7 +121,7 @@ Use "z" and "Shift+z" for zoom-in and zoom-out and use the command "what" in the
 
 ![Floor plan metal details](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/metal%20details.PNG)
 
-**Placement**
+**PLACEMENT**
 
 Placement is the process of finding a suitable physical location for each cell in the block.
 Tool only determine the location of each standard cell on the die.
@@ -147,4 +147,66 @@ Magic "expand" command to view the layout of a cell after placement:
 
 ![Expand_magic](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/magic_expand_the_cell.PNG)
 
+**STANDARD CELLS**
+
+There are multiple standard cells available in github or skywater. In this workshop let's cloning from github as below:
+
+![git clone](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/git_invertor_clone.PNG)
+
+Goto cloned vsdstdcelldesign and copy the technology from PDK folder available in work directory because technology file needed for MAGIC tool to open the cell layout.
+ 
+![copy technologyfile](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/copy_tech_file_for%20magic.PNG)
+
+As we can see the sky130_inv.mag in the vsdstdcelldesign , we can open sky130_inv.mag using magic with the copied technology file. Below is the command to open the .mag file in magic:
+
+![open mag with magic](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/open_Magic_with_mag_for_seeing_inv.PNG)
+
+The standard cell inverter layout looks as below:
+
+![Inverter](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/layout_inv.PNG)
+
+In the inverter layout, select a mask as below to know the MOSFET type with the magic command "what" :
+
+![nmos](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/nmos_layout.PNG)
+
+![pmos](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/pmos_layout.PNG)
+
+An inverter layout consists of multiple layers, below snapshot shows the layers used in inverter layout:
+
+![layer in inverter](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/metal_layer_details_inv.PNG)
+
+Next step is to characterise the inverter using ngspice. The command " **extraxt all,ext2spice chresh 0 rthresh 0** followed by **ext2spice**" create spice netlist.
+
+![splice netlist extraxt](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/magic_extract_cell_inv.PNG)
+
+![splice netlist extraxt](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/ext2spice.PNG)
+
+![splice netlist extraxt](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/ext2spice_generate_spice_file.PNG)
+
+THe spice netlist can be observed with the nodes available in the layout:
+
+![spice netlist](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/spice_inv_file.PNG)
+
+The spice netlist is not completed without the VDD,VSS and input pulse. Below update spice netlist consist of all the necessary input and power:
+ 
+![inverter updated spice netlist](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/sky130_invPspice_netlist.PNG)
+
+Now, we are ready for ngspice simualtion.Below is the terminal result after issuing the ngspice command  **ngspice sky130_inv.spice** : 
+
+![ngspice terminal](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/ngspice_sky130_inv_terminal.PNG)
+
+As we need to observe the waveform we can use the command **plot**.
+
+![ngspice plot](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/plot_ngspice.PNG)
+
+To reduce the spike in the rising edge, we will update the spice netlist C3 capacitance (output (Y) Load capacitance ) as below:
+
+![change cap in spice netlist](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/spice_file_update_C3_for_reduce_the%20spike.PNG)
+
+The inverter waveform can observe as below after re-run the **ngspice sky130_inv.spice** and **plot** command:
+
+![spice wave](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/SPICE_WAVE_INV.PNG)
+
+As the part of characterisation, we can get the propogation delay from the ngspice as below:
+![characterisation](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/propogation_rise_high.PNG)
 
