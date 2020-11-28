@@ -234,7 +234,7 @@ Using the waveform in  **ngspice** tool, we are mesuring the propogation delay. 
 
 **DRC CHEK**
 
-The DRC (Design Rule Check) is one of the very important in the layout.In this workshop, we are trying to download all the metal layers, using below command to download from opencircuitdesign.com
+The DRC (Design Rule Check) is one of the very important in the layout.In this workshop, we are trying to download all the metal layers. Below is command and respective website for download the list of drc_tests.
 
 _wget http://opencircuitdesign.com/open_pdks/archive/drc_tests.tgz_
 
