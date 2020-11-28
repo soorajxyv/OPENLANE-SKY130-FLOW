@@ -221,14 +221,14 @@ As the part of characterisation, we can get the propogation delay from the ngspi
 
 Using the waveform in  **ngspice** tool, we are mesuring the propogation delay. there are 8 different timing threshold characterisation need to perform which are listed below:
 
-1.slew_low_rise_thr  - considering 20% of rise time
-2.slew_high_rise_thr - considering 80% of rise time
-3.slew_low_fall_thr - considering 20% of fall time
-4.slew_high_fall_thr - considering 80% of fall time
-5.in_rise_thr - considering 50% of input rise time
-6.in_fall_thr - considering 50% of input fall time
-7.out_rise_thr - considering 50% of output rise time
-8.out_fall_thr - considering 50% of out fall time
+1. slew_low_rise_thr  - considering 20% of rise time
+2. slew_high_rise_thr - considering 80% of rise time
+3. slew_low_fall_thr - considering 20% of fall time
+4. slew_high_fall_thr - considering 80% of fall time
+5. in_rise_thr - considering 50% of input rise time
+6. in_fall_thr - considering 50% of input fall time
+7. out_rise_thr - considering 50% of output rise time
+8. out_fall_thr - considering 50% of out fall time
 
 **propogation delay = time(out_thr) - time(int_thr)**
 
@@ -248,7 +248,7 @@ Now that create a box and add metal2 init and see via using cif see VIA2 :
 There are a few more commands for DRC as below:
 
 1. ;drc why  - to check the drc error from layout
-2.**tech load[tech file]** & command **drc check** - to load the updated tech file and check the drc
+2. **tech load[tech file]** & command **drc check** - to load the updated tech file and check the drc
 
 some other commands as below :
 
