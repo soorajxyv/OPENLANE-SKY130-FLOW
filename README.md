@@ -255,10 +255,10 @@ some other commands as below :
 Box (for measure):
 ![box](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/box_command_magic.PNG)
 
-feed clear (to clear the via2):
+Feed clear (to clear the via2):
 ![feed clear](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/feed_clear_command_to_remove_VIA2.PNG)
 
-load command to load any .mag file (here poly layer) :
+Load command to load any .mag file (here poly layer) :
 ![load poly](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/load_poly_magic_command.PNG)
 
 **To clear the DRC rules, need to follow the Skywater PDK website (https://skywater-pdk--136.org.readthedocs.build/en/136/rules/periphery.html#poly)** for right measurements.
@@ -325,53 +325,85 @@ Use **_run_cts_** command to start CTS and we can see the result in terminal as 
 ![run cts](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/run_cts_result_terminal.PNG)
 
 Next is to start openroad in openlane to start timing analysis with just issue the command _openroad_. Once the openroad ready for next command, use load_lef and load_def followed bt write_db to create a database. below are a few snapshots:
+![timing analysis1](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/created_db.PNG)
 
-![timing analysis](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/created_db.PNG)
+![timing analysis2](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/read_db_and_verilog.PNG)
 
-![timing analysis](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/read_db_and_verilog.PNG)
+![timing analysis3](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/read_sdc.PNG)
 
-![timing analysis](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/read_sdc.PNG)
-below are a few debug steps to reduce the slack  in timing analysis:
-![timing analysis](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/find_delay_clock.PNG)
-![timing analysis](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/reduce_slack_inopenroad_timing_analysis.PNG)
-![timing analysis](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/link_desing_operoad.PNG)
-![timing analysis](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/report_check_delay_digits4.PNG)
+Below are a few debug steps to reduce the slack  in timing analysis:
+
+![timing analysis4](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/find_delay_clock.PNG)
+
+![timing analysis5](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/reduce_slack_inopenroad_timing_analysis.PNG)
+
+![timing analysis6](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/link_desing_operoad.PNG)
+
+![timing analysis7](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/report_check_delay_digits4.PNG)
+
 Slack violation for Hold time:
-![timing analysis](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/hold_timing.PNG)
+
+![timing analysis8](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/hold_timing.PNG)
+
 Slack violation for Setuptime time:
-![timing analysis](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/setup_time.PNG)
+
+![timing analysis9](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/setup_time.PNG)
+
 Command to remove the first buf from the list:
-![timing analysis](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/remove_first_buf_with_Ireplace.PNG)
+
+![timing analysis10](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/remove_first_buf_with_Ireplace.PNG)
+
 Need to use _set_ to get reflected in the openlane:
-![timing analysis](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/set_lreplace.PNG)
+
+![timing analysis11](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/set_lreplace.PNG)
+
 Setting current def as placement for further steps in the openlane flow:
-![timing analysis](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/set_current_def_placement_before_cts.PNG)
+
+![timing analysis12](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/set_current_def_placement_before_cts.PNG)
+
 Another command to insert the buf back to the list:
-![timing analysis](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/linsert.PNG)
+
+![timing analysis13](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/linsert.PNG)
+
+
+
 
 **PDN SETTING**
 This is another important requirement for generate power routing. in openLANE we use gen_pdn command:
+
 ![GEN PDN](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/gen_pdn_forPDN.PNG)
+
 ![PDN](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/pdn_df.PNG)
+
+
+
+
 **ROUTING**
 
 The last step in the openLANE is routing using _**run_routing**_ :
-![ROUTING](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/run_routing_terminal.PNG)
+
+![ROUTING1](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/run_routing_terminal.PNG)
 
 Summary of routing available in terminal as below:
-![ROUTING](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/routing_summary.PNG)
+
+![ROUTING2](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/routing_summary.PNG)
 
 After the routing we can see the DRC violations as below:
-![ROUTING](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/Final_routing_drc_report_violations.PNG)
+
+![ROUTING3](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/Final_routing_drc_report_violations.PNG)
 
 After the routing, SPEF(standard paracitic extraction form) file need to generate from DEF and LEF in outside of openlane flow as below:
+
 ![SPEF EXTRACTION](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/SPEF_EXTRACTION.PNG)
+
+
 
 **FULL DESIGN WITH INVERTER STD CELL**
 
 We can observe our routing layout including inverter with magic can be observed as below:
 
 ![ROUTING](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/Inverter_after_route_in_full_design.PNG)
+
 ![ROUTING](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/Inverter_after_route_in_full_design1.PNG)
 
 
