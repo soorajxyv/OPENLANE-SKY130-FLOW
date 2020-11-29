@@ -412,5 +412,5 @@ _Note: more snapshots available in snapshot directory in github_
 
 **ACKNOWLEDGEMENTS**
 
-* Kunal Ghosh, CO-founder (VSD Corp. Pvt. Ltd)
+* Kunal Ghosh, Co-Founder (VSD Corp. Pvt. Ltd)
 * Nickson P Jose, Teaching Assistant (VSD Corp. Pvt. Ltd)
