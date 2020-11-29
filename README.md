@@ -408,3 +408,9 @@ We can observe our routing layout including inverter with magic can be observed 
 
 
 _Note: more snapshots available in snapshot directory in github_
+
+
+**ACKNOWLEDGEMENTS**
+
+* Kunal Ghosh, CO-founder (VSD Corp. Pvt. Ltd)
+* Nickson P Jose, Teaching Assistant (VSD Corp. Pvt. Ltd)
