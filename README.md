@@ -400,7 +400,7 @@ After the routing, SPEF(standard paracitic extraction form) file need to generat
 
 **FULL DESIGN WITH INVERTER STD CELL**
 
-We can observe our routing layout including inverter with magic can be observed as below:
+We can observe our routing layout including inverter with magic as below:
 
 ![ROUTING](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/Inverter_after_route_in_full_design.PNG)
 
