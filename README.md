@@ -232,7 +232,7 @@ Using the waveform in  **ngspice** tool, we are mesuring the propogation delay. 
 
 **propogation delay = time(out_thr) - time(in_thr)**
 
-**DRC CHEK**
+**DRC CHECK IN DRC TESTS LAYERS**
 
 The DRC (Design Rule Check) is one of the very important in the layout.In this workshop, we are trying to download all the metal layers. Below is command and respective website for download the list of drc_tests.
 
@@ -261,4 +261,118 @@ feed clear (to clear the via2):
 load command to load any .mag file (here poly layer) :
 ![load poly](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/load_poly_magic_command.PNG)
 
-**To clear the DRC rules, need to follow the Skywater PDK website (https://skywater-pdk--136.org.readthedocs.build/en/136/rules/periphery.html#poly)** for right measurements. 
+**To clear the DRC rules, need to follow the Skywater PDK website (https://skywater-pdk--136.org.readthedocs.build/en/136/rules/periphery.html#poly)** for right measurements.
+
+**LEF FILE EXTRACTION FROM STD CELL LAYOUT**
+
+Next is to get the grid in magic. The grid details available in pdk/TRACE.info file as below:
+
+![trace_info](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/TracePinfo_in_pdk.PNG)
+
+Include grid in magic with _grid_:
+
+![magic grid](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/Grid_magic.PNG)
+
+Define port (using options -> texts) :
+
+![port](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/define_the_port_from_edit_text_after_select.PNG)
+
+Define _port class_ and _port use_ in magic:
+
+![port class](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/Y_port_class_and_use.PNG)
+
+Create LEF from STD CELL inverter using _write lef_:
+
+![LEF write](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/lef_write_command_to_create_lef.PNG)
+
+**INCLUDE STD CELL TO PICORV32A**
+
+Copy the library and new created inverter .lef file to the /design/picorv32a/src directory:
+
+![COPY TO SRC](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/copy_lef_lib_to_design_src.PNG)
+
+Next step to update the config file with std cell inverter .lef file as below:
+![config_update](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/CONFIG_UPDATE_WITH_LEF.PNG)
+
+Add .lef after _prep_ :
+
+![add lef in openlane flow](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/add_lefs.PNG)
+
+The inverter cell can be observed after placement in magic as below:
+
+![Inverter cell](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/CUstom_inverter_after_placement.PNG)
+
+Create/copy the my_base.sdc file for timing analysis and pre_sta.conf file as below:
+
+![my_base](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/my_base_sdc.PNG)
+
+![cts_config](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/create_cts_file.PNG)
+
+SYNTHESIS variables need to set for reduce the slack violations as below:
+![slack violation](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/InkedSYTH_variable_set_LI.jpg)
+
+Reducing slack after using the _sta pre_sta.conf_ and replace a few buffers:
+
+![slack violation](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/reduce_slack_m1p0535_after_replace_cell.PNG)
+
+![slack violation](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/reduce_to_0p77.PNG)
+
+We can reduce the slack and use _write_verilog_ command to write to the synthesis verilog in the result/synthesis/synthesis.v
+
+**CLOCK TREE ANALYSIS**
+
+Use **_run_cts_** command to start CTS and we can see the result in terminal as below:
+![run cts](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/run_cts_result_terminal.PNG)
+
+Next is to start openroad in openlane to start timing analysis with just issue the command _openroad_. Once the openroad ready for next command, use load_lef and load_def followed bt write_db to create a database. below are a few snapshots:
+
+![timing analysis](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/created_db.PNG)
+
+![timing analysis](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/read_db_and_verilog.PNG)
+
+![timing analysis](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/read_sdc.PNG)
+below are a few debug steps to reduce the slack  in timing analysis:
+![timing analysis](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/find_delay_clock.PNG)
+![timing analysis](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/reduce_slack_inopenroad_timing_analysis.PNG)
+![timing analysis](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/link_desing_operoad.PNG)
+![timing analysis](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/report_check_delay_digits4.PNG)
+Slack violation for Hold time:
+![timing analysis](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/hold_timing.PNG)
+Slack violation for Setuptime time:
+![timing analysis](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/setup_time.PNG)
+Command to remove the first buf from the list:
+![timing analysis](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/remove_first_buf_with_Ireplace.PNG)
+Need to use _set_ to get reflected in the openlane:
+![timing analysis](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/set_lreplace.PNG)
+Setting current def as placement for further steps in the openlane flow:
+![timing analysis](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/set_current_def_placement_before_cts.PNG)
+Another command to insert the buf back to the list:
+![timing analysis](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/linsert.PNG)
+
+**PDN SETTING**
+This is another important requirement for generate power routing. in openLANE we use gen_pdn command:
+![GEN PDN](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/gen_pdn_forPDN.PNG)
+![PDN](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/pdn_df.PNG)
+**ROUTING**
+
+The last step in the openLANE is routing using _**run_routing**_ :
+![ROUTING](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/run_routing_terminal.PNG)
+
+Summary of routing available in terminal as below:
+![ROUTING](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/routing_summary.PNG)
+
+After the routing we can see the DRC violations as below:
+![ROUTING](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/Final_routing_drc_report_violations.PNG)
+
+After the routing, SPEF(standard paracitic extraction form) file need to generate from DEF and LEF in outside of openlane flow as below:
+![SPEF EXTRACTION](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/SPEF_EXTRACTION.PNG)
+
+**FULL DESIGN WITH INVERTER STD CELL**
+
+We can observe our routing layout including inverter with magic can be observed as below:
+
+![ROUTING](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/Inverter_after_route_in_full_design.PNG)
+![ROUTING](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/Inverter_after_route_in_full_design1.PNG)
+
+
+_Note: more snapshots available in snapshot directory in github_
