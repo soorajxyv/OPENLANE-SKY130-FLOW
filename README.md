@@ -407,7 +407,10 @@ We can observe our routing layout including inverter with magic as below:
 ![ROUTING](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/Inverter_after_route_in_full_design1.PNG)
 
 
-_Note: more snapshots available in snapshot directory in github_
+**GDSII** file can be obtained with  _**run_magic**_ command.
+
+
+_Note: more snapshots available in snapshot directory in github._
 
 
 **ACKNOWLEDGEMENTS**
