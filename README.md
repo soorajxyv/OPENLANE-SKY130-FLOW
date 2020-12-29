@@ -1,5 +1,5 @@
 
-VLSI design open source RTL2GSDII 
+VLSI design open source RTL2GDSII 
 
 ![OpenLANE Flow](https://github.com/soorajkvl/openLANE-Sky130-Workshop/blob/main/Snapshots/VLSI-design-course.jpg)
 
