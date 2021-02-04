@@ -23,7 +23,7 @@ OpenLANE is an automated RTL to GDSII flow based on several components including
 
 Below is the openLANE flow (RTL2GDSII):
 
-![OpenLANE Flow](https://github.com/efabless/openlane/blob/master/doc/openlane.flow.1.png)
+![OpenLANE Flow](Snapshots/3922DD5A-21DD-47FB-B7F1-A8966DB3DFA7.png)
 
 Each flow run based on TCL scripts available in the [vsdflow](https://github.com/kunalg123/vsdflow) 
 
